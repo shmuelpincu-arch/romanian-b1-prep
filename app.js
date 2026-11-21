@@ -95,11 +95,11 @@
         h += '<textarea rows="2" lang="ro" data-ans="' + it.id + '" placeholder="Scrieți aici…">' + esc(v) + "</textarea>";
       }
       if (checked) {
-        if (ex.kind === "open") h += '<div class="fb neutral">פתרון מוצע: <span class="ltr">' + esc(it.ans[0]) + "</span><br>" + esc(it.ex) + "&rlm;</div>";
+        if (ex.kind === "open") h += '<div class="fb neutral">פתרון מוצע: <span class="ltr">' + esc(it.ans[0]) + "</span><br>" + esc(it.ex) + endMark(it.ex) + "</div>";
         else {
           var good = g === "ok" || g === "okd";
           h += '<div class="fb ' + (good ? "ok" : "bad") + '"><b class="' + (good ? "ok" : "bad") + '">' + (g === "ok" ? "✓ נכון" : g === "okd" ? "✓ נכון (שימו לב לסימנים ă, â, î, ș, ț)" : g === "empty" ? "לא נענה" : "✗ לא נכון") + "</b>" +
-            (g !== "ok" ? ' · התשובה: <span class="ltr">' + esc(it.ans[0]) + "</span>" : "") + "<br>" + esc(it.ex) + "&rlm;</div>";
+            (g !== "ok" ? ' · התשובה: <span class="ltr">' + esc(it.ans[0]) + "</span>" : "") + "<br>" + esc(it.ex) + endMark(it.ex) + "</div>";
         }
       }
       h += "</div>";
@@ -120,6 +120,7 @@
     return h + "</div>";
   }
 
+  function endMark(t) { return /[A-Za-z\u00C0-\u024F\u00BB\u201D"][.!?)]*$/.test(t) ? "&lrm;" : "&rlm;"; }
   function wc(t) { t = (t || "").trim(); return t ? t.split(/\s+/).length : 0; }
   function writingView(sim) {
     var h = '<p class="muted">60 דקות ו-25 נקודות לשתי המשימות יחד. יש שעון נפרד לכל משימה.</p>';
